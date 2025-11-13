@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://pifqbuimdud1"]
+
+[ext_resource type="Script" uid="uid://cudety2bkgq4a" path="res://enemy_body.gd" id="1_5pam3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lgr22"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5pam3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trn2v"]
+
+[node name="EnemyBody3D" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_5pam3")
+
+[node name="Character Model" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_lgr22")
+
+[node name="Hitbox" type="Area3D" parent="Character Model"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Character Model/Hitbox"]
+shape = SubResource("BoxShape3D_5pam3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_trn2v")

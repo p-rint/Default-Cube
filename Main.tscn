@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://eh3g2ma4uq2a"]
+
+[ext_resource type="PackedScene" uid="uid://dv0bdrf81i4sk" path="res://objects.tscn" id="1_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://nabtk2urmafv" path="res://character_body_3d.tscn" id="2_r0du0"]
+[ext_resource type="PackedScene" uid="uid://pifqbuimdud1" path="res://Enemy_Body.tscn" id="3_r0du0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uu6xs"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_r0du0"]
+sky_material = SubResource("ProceduralSkyMaterial_uu6xs")
+
+[sub_resource type="Environment" id="Environment_cm0pq"]
+background_mode = 2
+sky = SubResource("Sky_r0du0")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cm0pq")
+
+[node name="Objects" parent="." instance=ExtResource("1_uu6xs")]
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_r0du0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4271854, 3.5769515)
+
+[node name="EnemyBody3D" parent="." instance=ExtResource("3_r0du0")]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 1.4271854, -4.3855543)
+
+[node name="Node3D" type="Node3D" parent="."]

@@ -1,0 +1,210 @@
+[gd_scene load_steps=12 format=3 uid="uid://nabtk2urmafv"]
+
+[ext_resource type="Script" uid="uid://7maoqmpfnikq" path="res://CharacterScript.gd" id="1_iwpo4"]
+[ext_resource type="Script" uid="uid://cyh7igx5r1fq1" path="res://area_3d.gd" id="2_fb3t6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lgr22"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iwpo4"]
+size = Vector3(19.391602, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trn2v"]
+
+[sub_resource type="Animation" id="Animation_fb3t6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character Model/Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_iwpo4"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character Model/Pivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.26706037, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.9658652, 0), Vector3(0, -0.8728567, 0), Vector3(0, -0.8393639, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.099999994, 0.1001, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"attack"
+}, {
+"args": [],
+"method": &"On"
+}, {
+"args": [],
+"method": &"Off"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_vd578"]
+resource_name = "attack2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character Model/Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1.7411003, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.68331385, 0), Vector3(0, 0.92884684, 0), Vector3(0, 0.8748464, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"attack2"
+}, {
+"args": [],
+"method": &"On"
+}, {
+"args": [],
+"method": &"Off"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_c7tqt"]
+resource_name = "attack3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character Model/Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(2.4622881, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.8748464, 0), Vector3(1.4049901, -3.12763, 0), Vector3(1.4561908, -3.1214397, 0.0062495726)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"attack3"
+}, {
+"args": [],
+"method": &"On"
+}, {
+"args": [],
+"method": &"Off"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_nl27k"]
+resource_name = "attack4"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character Model/Pivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.4556046, 0, 0), Vector3(-0.12217305, 0, 0), Vector3(0.017453292, 0, 0), Vector3(-0.116937056, -0.0017453292, 0), Vector3(-0.11170107, -0.0017453292, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"attack4"
+}, {
+"args": [],
+"method": &"On"
+}, {
+"args": [],
+"method": &"Off"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vd578"]
+_data = {
+&"RESET": SubResource("Animation_fb3t6"),
+&"attack": SubResource("Animation_iwpo4"),
+&"attack2": SubResource("Animation_vd578"),
+&"attack3": SubResource("Animation_c7tqt"),
+&"attack4": SubResource("Animation_nl27k")
+}
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_iwpo4")
+
+[node name="Character Model" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_lgr22")
+
+[node name="Pivot" type="Node3D" parent="Character Model"]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character Model/Pivot"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 5, 0, 0, -2.3547077)
+mesh = SubResource("BoxMesh_lgr22")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Character Model/Pivot/MeshInstance3D"]
+monitoring = false
+script = ExtResource("2_fb3t6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Character Model/Pivot/MeshInstance3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99998844, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_iwpo4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_trn2v")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1421586, 1.9192085)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_vd578")
+}
+
+[connection signal="area_entered" from="Character Model/Pivot/MeshInstance3D/Area3D" to="Character Model/Pivot/MeshInstance3D/Area3D" method="_on_area_entered"]
