@@ -1,12 +1,20 @@
-[gd_scene load_steps=12 format=3 uid="uid://nabtk2urmafv"]
+[gd_scene load_steps=15 format=3 uid="uid://nabtk2urmafv"]
 
 [ext_resource type="Script" uid="uid://7maoqmpfnikq" path="res://CharacterScript.gd" id="1_iwpo4"]
 [ext_resource type="Script" uid="uid://cyh7igx5r1fq1" path="res://area_3d.gd" id="2_fb3t6"]
+[ext_resource type="Shader" uid="uid://dminbmbjcgsja" path="res://shaderTest.gdshader" id="2_vd578"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lgr22"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd578"]
+render_priority = 0
+shader = ExtResource("2_vd578")
+shader_parameter/t = 1.0
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_iwpo4"]
 size = Vector3(19.391602, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fb3t6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_trn2v"]
 
@@ -179,6 +187,7 @@ script = ExtResource("1_iwpo4")
 
 [node name="Character Model" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_lgr22")
+surface_material_override/0 = SubResource("ShaderMaterial_vd578")
 
 [node name="Pivot" type="Node3D" parent="Character Model"]
 transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -195,6 +204,11 @@ script = ExtResource("2_fb3t6")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Character Model/Pivot/MeshInstance3D/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 0.99998844, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_iwpo4")
+
+[node name="PlayerHitbox" type="Area3D" parent="Character Model"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Character Model/PlayerHitbox"]
+shape = SubResource("BoxShape3D_fb3t6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_trn2v")

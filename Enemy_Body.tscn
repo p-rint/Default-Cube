@@ -1,12 +1,147 @@
-[gd_scene load_steps=5 format=3 uid="uid://pifqbuimdud1"]
+[gd_scene load_steps=14 format=3 uid="uid://pifqbuimdud1"]
 
 [ext_resource type="Script" uid="uid://cudety2bkgq4a" path="res://enemy_body.gd" id="1_5pam3"]
+[ext_resource type="Script" uid="uid://cid2dmaxrhwim" path="res://enemyArea_3d.gd" id="2_dnsdh"]
+[ext_resource type="Shader" uid="uid://dminbmbjcgsja" path="res://shaderTest.gdshader" id="2_oh47o"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lgr22"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0hgr8"]
+render_priority = 0
+shader = ExtResource("2_oh47o")
+shader_parameter/t = 1.0
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_5pam3"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_oh47o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0hgr8"]
+size = Vector3(19.391602, 1, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_trn2v"]
+
+[sub_resource type="Animation" id="Animation_oh47o"]
+resource_name = "Attack"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character Model/Pivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6333333, 1, 1.0666667, 1.1),
+"transitions": PackedFloat32Array(2.297397, 0.4061261, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.6427467, 9.798821e-09, 6.8519928e-09), Vector3(1.8692477, 0, 0), Vector3(-0.16238546, -1.1347128e-07, -7.9346734e-08), Vector3(-0.09182183, -1.13237355e-07, -8.119105e-08), Vector3(-0.15791743, -1.1345249e-07, -7.946458e-08)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6333333, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"Off"
+}, {
+"args": [],
+"method": &"On"
+}, {
+"args": [],
+"method": &"Off"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_dnsdh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:stunned")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Character Model:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Character Model/Pivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.8692477, 0, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Off"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5pam3"]
+resource_name = "Stun"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:stunned")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Character Model:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666666, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.11407472, 5.719206e-10, 1.0016214e-08), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnsdh"]
+_data = {
+&"Attack": SubResource("Animation_oh47o"),
+&"RESET": SubResource("Animation_dnsdh"),
+&"Stun": SubResource("Animation_5pam3")
+}
 
 [node name="EnemyBody3D" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -14,11 +149,36 @@ script = ExtResource("1_5pam3")
 
 [node name="Character Model" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_lgr22")
+surface_material_override/0 = SubResource("ShaderMaterial_0hgr8")
 
 [node name="Hitbox" type="Area3D" parent="Character Model"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Character Model/Hitbox"]
 shape = SubResource("BoxShape3D_5pam3")
 
+[node name="Pivot" type="Node3D" parent="Character Model"]
+transform = Transform3D(0.99999976, 0, 0, 0, -0.29404038, -0.955793, 0, 0.955793, -0.29404038, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character Model/Pivot"]
+transform = Transform3D(0.1, 0, -2.842171e-14, 0, 0.1, 0, 8.881784e-16, 0, 3, -7.3488536e-08, 0, -1.514097)
+mesh = SubResource("BoxMesh_oh47o")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Character Model/Pivot/MeshInstance3D"]
+monitoring = false
+monitorable = false
+script = ExtResource("2_dnsdh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Character Model/Pivot/MeshInstance3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99998844, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_0hgr8")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_trn2v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dnsdh")
+}
+
+[connection signal="area_entered" from="Character Model/Pivot/MeshInstance3D/Area3D" to="Character Model/Pivot/MeshInstance3D/Area3D" method="_on_area_entered"]

@@ -9,9 +9,11 @@ var gravityEnabled = true
 @onready var animPlr = $AnimationPlayer
 
 @onready var enemy = $"../EnemyBody3D"
+@onready var enemyAnimPlr = $"../EnemyBody3D/AnimationPlayer"
 
 func also() -> void:
-	#print("atk")
+	if velocity.is_finite():
+		print("I like doggyies")
 	pass
 	
 
@@ -38,9 +40,19 @@ func Off() -> void:
 func hit() -> void:
 	var hitVel = -(position - enemy.position).normalized()
 	hitVel.y = 0
-	
+	#print("h")
 	enemy.velocity = hitVel * 40
-	
+	enemy.stunned = true
+	$"Character Model".set_instance_shader_parameter("t", 0.0)
+	enemy.move_and_slide()
+	enemyAnimPlr.stop()
+	enemyAnimPlr.play("Stun")
+	#also()
+func hurt() -> void:
+	var hitVel = (position - enemy.position).normalized()
+	hitVel.y = 0
+	velocity = hitVel * 40
+	move_and_slide()
 	
 
 func _physics_process(delta: float) -> void:
