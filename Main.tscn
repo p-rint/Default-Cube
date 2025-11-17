@@ -31,7 +31,15 @@ environment = SubResource("Environment_cm0pq")
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_r0du0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4271854, 3.5769515)
 
-[node name="EnemyBody3D" parent="." instance=ExtResource("3_r0du0")]
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="EnemyBody3D" parent="Node" instance=ExtResource("3_r0du0")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 1.4271854, -4.3855543)
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="EnemyBody3D3" parent="Node" instance=ExtResource("3_r0du0")]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -4.0424786, 1.4271854, -4.3855543)
+
+[node name="EnemyBody3D2" parent="Node" instance=ExtResource("3_r0du0")]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 6.163419, 1.4271854, -4.3855543)

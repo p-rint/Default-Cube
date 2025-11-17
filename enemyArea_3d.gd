@@ -1,5 +1,6 @@
 extends Area3D
 
+@onready var enemyBody = $"../../../.."
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,5 +16,6 @@ func _on_area_entered(area: Area3D) -> void:
 	if area.name == "PlayerHitbox":
 		var player = area.get_parent().get_parent()
 		#print("Area")
-		player.hurt()
+		player.hurt(enemyBody)
+		player.Health -= 10
 		print("plrGotHit")

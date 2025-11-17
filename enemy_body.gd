@@ -4,7 +4,9 @@ extends CharacterBody3D
 const SPEED = 2.0
 const JUMP_VELOCITY = 4.5
 
-@onready var char = $"../CharacterBody3D"
+@export var Health = 100
+
+@onready var char = $"../../CharacterBody3D"
 
 @onready var animPlr = $AnimationPlayer
 
@@ -36,7 +38,22 @@ func checkAtk() -> void:
 		#animPlr.stop()
 		animPlr.play("Attack")
 		
-		
+func isDead() -> void:
+	if Health <= 0:
+		queue_free()
+
+
+func hurt() -> void:
+	var hitVel = -(char.position - position).normalized()
+	hitVel.y = 0
+	#print("h")
+	velocity = hitVel * 40
+	stunned = true
+	#$"Character Model".set_instance_shader_parameter("t", 0.0)
+	move_and_slide()
+	animPlr.stop()
+	animPlr.play("Stun")
+
 
 
 
@@ -58,3 +75,4 @@ func _physics_process(delta: float) -> void:
 	
 	checkAtk()
 	move_and_slide()
+	isDead()
