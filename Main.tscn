@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://eh3g2ma4uq2a"]
+[gd_scene load_steps=25 format=3 uid="uid://eh3g2ma4uq2a"]
 
-[ext_resource type="PackedScene" uid="uid://dv0bdrf81i4sk" path="res://objects.tscn" id="1_uu6xs"]
-[ext_resource type="PackedScene" uid="uid://nabtk2urmafv" path="res://character_body_3d.tscn" id="2_r0du0"]
-[ext_resource type="PackedScene" uid="uid://pifqbuimdud1" path="res://Enemy_Body.tscn" id="3_r0du0"]
+[ext_resource type="Script" uid="uid://c3fhot4y6kmwi" path="res://Player.gd" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://byrrmeraoc61x" path="res://Camera_pivot.gd" id="2_uu6xs"]
+[ext_resource type="Shader" uid="uid://bfxij6atsxixq" path="res://Enemy.gdshader" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://b70aghhqbvbav" path="res://Enemy.gd" id="3_fos0i"]
+[ext_resource type="Texture2D" uid="uid://yuf2t0v36pxv" path="res://icon.svg" id="3_r0du0"]
+[ext_resource type="Script" uid="uid://cstpfyjey3yvt" path="res://MainGame.gd" id="6_3dxm6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uu6xs"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -15,31 +18,239 @@ sky_material = SubResource("ProceduralSkyMaterial_uu6xs")
 background_mode = 2
 sky = SubResource("Sky_r0du0")
 tonemap_mode = 2
-glow_enabled = true
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_uu6xs"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
+[sub_resource type="BoxMesh" id="BoxMesh_cm0pq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uu6xs"]
+
+[sub_resource type="Animation" id="Animation_lgr22"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character/SwordPiv:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fos0i"]
+resource_name = "Slash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character/SwordPiv:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.134499, 0), Vector3(0, 1.5009831, 0), Vector3(0, 1.4660766, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.16666667, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hitBoxOn"
+}, {
+"args": [],
+"method": &"hitBoxOff"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trn2v"]
+_data = {
+&"RESET": SubResource("Animation_lgr22"),
+&"Slash": SubResource("Animation_fos0i")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fos0i"]
+render_priority = 0
+shader = ExtResource("3_cm0pq")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/stunColor = Color(1, 1, 1, 1)
+shader_parameter/val = 0.0
+
+[sub_resource type="Animation" id="Animation_r0du0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Character/SwordPiv:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Character/MeshInstance3D:surface_material_override/0:shader_parameter/val")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3dxm6"]
+resource_name = "Stun"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character/MeshInstance3D:surface_material_override/0:shader_parameter/val")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cm0pq"]
+_data = {
+&"RESET": SubResource("Animation_r0du0"),
+&"Stun": SubResource("Animation_3dxm6")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fos0i"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r0du0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cm0pq"]
+albedo_texture = ExtResource("3_r0du0")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cm0pq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3dxm6"]
+
+[node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cm0pq")
 
-[node name="Objects" parent="." instance=ExtResource("1_uu6xs")]
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.435546, 0)
+script = ExtResource("1_glv2v")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("2_r0du0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4271854, 3.5769515)
+[node name="Character" type="Node3D" parent="Player"]
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Character"]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+mesh = SubResource("BoxMesh_uu6xs")
 
-[node name="Node" type="Node" parent="."]
+[node name="SwordPiv" type="Node3D" parent="Player/Character"]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 0, 0, 0)
 
-[node name="EnemyBody3D" parent="Node" instance=ExtResource("3_r0du0")]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 1.4271854, -4.3855543)
+[node name="Sword" type="MeshInstance3D" parent="Player/Character/SwordPiv"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 5, 0, 0, 2.5)
+mesh = SubResource("BoxMesh_cm0pq")
 
-[node name="EnemyBody3D3" parent="Node" instance=ExtResource("3_r0du0")]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -4.0424786, 1.4271854, -4.3855543)
+[node name="CameraPivot" type="Node3D" parent="Player"]
+script = ExtResource("2_uu6xs")
 
-[node name="EnemyBody3D2" parent="Node" instance=ExtResource("3_r0du0")]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 6.163419, 1.4271854, -4.3855543)
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5634518, 4.0779386)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("BoxShape3D_uu6xs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+&"": SubResource("AnimationLibrary_trn2v")
+}
+
+[node name="Enemy" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.046251, 2.435546, 5.020296)
+script = ExtResource("3_fos0i")
+
+[node name="Character" type="Node3D" parent="Enemy"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy/Character"]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+mesh = SubResource("BoxMesh_uu6xs")
+surface_material_override/0 = SubResource("ShaderMaterial_fos0i")
+
+[node name="SwordPiv" type="Node3D" parent="Enemy/Character"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="Sword" type="MeshInstance3D" parent="Enemy/Character/SwordPiv"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 5, 0, 0, 2.5)
+mesh = SubResource("BoxMesh_cm0pq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy"]
+shape = SubResource("BoxShape3D_uu6xs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
+libraries = {
+&"": SubResource("AnimationLibrary_cm0pq")
+}
+
+[node name="Hurtbox" type="Area3D" parent="Enemy"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/Hurtbox"]
+shape = SubResource("BoxShape3D_fos0i")
+
+[node name="Map" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
+mesh = SubResource("BoxMesh_r0du0")
+surface_material_override/0 = SubResource("StandardMaterial3D_cm0pq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map"]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
+shape = SubResource("BoxShape3D_cm0pq")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0957949, 6.6391797)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_fos0i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("BoxMesh_3dxm6")
+
+[node name="Game" type="Node" parent="."]
+script = ExtResource("6_3dxm6")
+
+[node name="Timers" type="Node" parent="Game"]
+
+[node name="HitStop" type="Timer" parent="Game/Timers"]
+one_shot = true
+ignore_time_scale = true
