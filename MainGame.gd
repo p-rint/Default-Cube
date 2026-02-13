@@ -1,5 +1,10 @@
 extends Node
 
+const hitEffect = preload("res://hit_effect.tscn")
+
+@onready var player: CharacterBody3D = $"../Player"
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,4 +21,13 @@ func _process(delta: float) -> void:
 	
 
 func hitStop(time : float) -> void:
-	$Timers/HitStop.start(time)
+	await get_tree().create_timer(.06).timeout
+	#$Timers/HitStop.start(time)
+
+
+func hitFX(pos : Vector3) -> void:
+	var new : GPUParticles3D = hitEffect.instantiate()
+	new.global_position = pos
+	new.look_at(player.global_position)
+	$Particles.add_child(new)
+	

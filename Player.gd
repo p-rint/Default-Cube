@@ -40,6 +40,7 @@ func _physics_process(delta: float) -> void:
 
 
 	if Input.is_action_just_pressed("Attack"):
+		animPlr.stop()
 		animPlr.play("Slash")
 		Character.rotation.y = atan2(camForw.x, camForw.z)
 	move_and_slide()

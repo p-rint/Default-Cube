@@ -34,5 +34,6 @@ func _on_area_entered(area: Area3D) -> void:
 
 func hit(enemy : CharacterBody3D) -> void:
 	enemy.damage(1)
-	gameScript.hitStop(.09)
+	gameScript.hitFX(enemy.global_position)
+	gameScript.hitStop(.2)
 	
