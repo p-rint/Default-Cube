@@ -21,13 +21,18 @@ func _process(delta: float) -> void:
 	
 
 func hitStop(time : float) -> void:
-	await get_tree().create_timer(.06).timeout
+	#await get_tree().create_timer(.06).timeout
 	#$Timers/HitStop.start(time)
+	pass
 
 
 func hitFX(pos : Vector3) -> void:
-	var new : GPUParticles3D = hitEffect.instantiate()
+	var new : Node3D = hitEffect.instantiate()
+	#new.emitting = true
+	var toPlr = (player.global_position - pos).normalized()
+	new.rotation.y = atan2(toPlr.x, toPlr.z)
+	
 	new.global_position = pos
-	new.look_at(player.global_position)
+	#new.look_at(player.global_position)
 	$Particles.add_child(new)
 	

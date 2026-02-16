@@ -1,10 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://eh3g2ma4uq2a"]
+[gd_scene load_steps=29 format=3 uid="uid://eh3g2ma4uq2a"]
 
 [ext_resource type="Script" uid="uid://c3fhot4y6kmwi" path="res://Player.gd" id="1_glv2v"]
+[ext_resource type="ArrayMesh" uid="uid://bop0tidirljrl" path="res://addons/godot_super-wakatime/Sword Slash/sword slash.obj" id="2_trn2v"]
 [ext_resource type="Script" uid="uid://byrrmeraoc61x" path="res://Camera_pivot.gd" id="2_uu6xs"]
+[ext_resource type="Shader" uid="uid://dybf5h8lsvyah" path="res://Slash.gdshader" id="3_03owx"]
 [ext_resource type="Shader" uid="uid://bfxij6atsxixq" path="res://Enemy.gdshader" id="3_cm0pq"]
 [ext_resource type="Script" uid="uid://b70aghhqbvbav" path="res://Enemy.gd" id="3_fos0i"]
 [ext_resource type="Texture2D" uid="uid://yuf2t0v36pxv" path="res://icon.svg" id="3_r0du0"]
+[ext_resource type="Texture2D" uid="uid://cnxvlrayqfghu" path="res://addons/godot_super-wakatime/Sword Slash/slash.png" id="4_03owx"]
 [ext_resource type="Script" uid="uid://cstpfyjey3yvt" path="res://MainGame.gd" id="6_3dxm6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uu6xs"]
@@ -18,10 +21,17 @@ sky_material = SubResource("ProceduralSkyMaterial_uu6xs")
 background_mode = 2
 sky = SubResource("Sky_r0du0")
 tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_uu6xs"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cm0pq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkp8b"]
+render_priority = 0
+shader = ExtResource("3_03owx")
+shader_parameter/text = ExtResource("4_03owx")
+shader_parameter/t = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uu6xs"]
 
@@ -38,6 +48,42 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Character/Slash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3, 3, -3)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Character/Slash:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.9024088, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Character/Slash:surface_material_override/0:shader_parameter/t")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_fos0i"]
@@ -70,6 +116,42 @@ tracks/1/keys = {
 "args": [],
 "method": &"hitBoxOff"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Character/Slash:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.16658847, 0.43333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3, 3, -3), Vector3(3.36, 3.36, -3.36)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Character/Slash:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.16698045, 0.26659214),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.9024088, 0), Vector3(0, 0.6824237, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Character/Slash:surface_material_override/0:shader_parameter/t")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.16320072, 0.2, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.70000001043084, 1.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_trn2v"]
@@ -181,6 +263,11 @@ transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 0, 0, 0)
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 5, 0, 0, 2.5)
 mesh = SubResource("BoxMesh_cm0pq")
 
+[node name="Slash" type="MeshInstance3D" parent="Player/Character"]
+transform = Transform3D(-0.97670436, 0, 2.836556, 0, 3, 0, 2.836556, 0, 0.97670436, 0, 0, 0)
+mesh = ExtResource("2_trn2v")
+surface_material_override/0 = SubResource("ShaderMaterial_wkp8b")
+
 [node name="CameraPivot" type="Node3D" parent="Player"]
 script = ExtResource("2_uu6xs")
 
@@ -239,6 +326,7 @@ shape = SubResource("BoxShape3D_cm0pq")
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0957949, 6.6391797)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_fos0i")
@@ -254,3 +342,5 @@ script = ExtResource("6_3dxm6")
 [node name="HitStop" type="Timer" parent="Game/Timers"]
 one_shot = true
 ignore_time_scale = true
+
+[node name="Particles" type="Node3D" parent="Game"]
